@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
 class WishList extends StatefulWidget {
+  const WishList({super.key});
+
   @override
-  _WishlistState createState() => _WishlistState();
+  WishlistState createState() => WishlistState();
 }
 
-class _WishlistState extends State<WishList> {
+class WishlistState extends State<WishList> {
   final List<Map<String, dynamic>> products = [
     {
       'name': 'Perfume',
@@ -34,7 +36,7 @@ class _WishlistState extends State<WishList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wishlist'),
+        title: const Text('Wishlist'),
       ),
       body: ListView.builder(
         itemCount: products.length,
@@ -46,11 +48,11 @@ class _WishlistState extends State<WishList> {
               if (direction == DismissDirection.endToStart) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("${item['name']} dismissed"),
-                    duration: Duration(seconds: 1)));
+                    duration: const Duration(seconds: 1)));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("${item['name']} added to cart"),
-                    duration: Duration(seconds: 1)));
+                    duration: const Duration(seconds: 1)));
               }
               setState(() {
                 products.removeAt(index);
@@ -62,7 +64,7 @@ class _WishlistState extends State<WishList> {
               child: const Row(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: EdgeInsets.only(left: 20.0),
                     child: Icon(Icons.add_shopping_cart, color: Colors.white),
                   ),
                 ],

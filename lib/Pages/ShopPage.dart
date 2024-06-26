@@ -7,7 +7,10 @@ import 'package:myshop/utils/utils.dart';
 import 'search.dart';
 
 class Shop extends StatefulWidget {
+  const Shop({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ShopState createState() => _ShopState();
 }
 
@@ -84,14 +87,14 @@ class _ShopState extends State<Shop> {
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: const Icon(Icons.search, color: Colors.white),
               onPressed: () {
                 scaffoldKey.currentState!
-                    .showBottomSheet((context) => ShopSearch());
+                    .showBottomSheet((context) => const ShopSearch());
               },
             )
           ],
-          title: Text('Shop'),
+          title: const Text('Shop'),
         ),
         body: Builder(
           builder: (BuildContext context) {

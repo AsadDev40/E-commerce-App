@@ -100,7 +100,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             duration: const Duration(milliseconds: 1200),
                             child: Text(
                               widget.title!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 40),
