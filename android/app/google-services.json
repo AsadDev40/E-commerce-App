@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "989888020220",
+    "firebase_url": "https://tictac-615f4-default-rtdb.firebaseio.com",
+    "project_id": "tictac-615f4",
+    "storage_bucket": "tictac-615f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989888020220:android:3b78b1fe6e067f047b2179",
+        "android_client_info": {
+          "package_name": "com.example.myshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989888020220:android:323ed0e717d38ad07b2179",
+        "android_client_info": {
+          "package_name": "com.example.tic_tac"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989888020220:android:e226481c8b625b247b2179",
+        "android_client_info": {
+          "package_name": "tic.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
