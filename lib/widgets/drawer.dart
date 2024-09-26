@@ -79,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Profile'),
             onTap: () {
-              Utils.navigateTo(context, const Profilescreen());
+              Utils.navigateTo(context, const ProfileScreen());
             },
           ),
           ListTile(

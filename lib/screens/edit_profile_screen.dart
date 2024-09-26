@@ -211,7 +211,7 @@ class EditProfilePage extends HookWidget {
                   EasyLoading();
 
                   EasyLoading.dismiss();
-                  Utils.navigateTo(context, const Profilescreen());
+                  Utils.navigateTo(context, const ProfileScreen());
                   imageProvider.reset();
                 },
               ),

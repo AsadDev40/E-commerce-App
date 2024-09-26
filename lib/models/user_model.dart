@@ -6,6 +6,7 @@ class UserModel {
     required this.email,
     required this.createdAt,
     this.address,
+    this.phone,
     this.profileImage,
   });
 
@@ -14,6 +15,7 @@ class UserModel {
   final String email;
   final String? profileImage;
   final String? address;
+  final String? phone;
   final DateTime createdAt;
 
   // from json
@@ -23,6 +25,7 @@ class UserModel {
       userName: json['userName'],
       email: json['email'],
       address: json['address'],
+      phone: json['phone'],
       profileImage: json['profileImage'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(
           json['createdAt'].millisecondsSinceEpoch),
@@ -36,6 +39,7 @@ class UserModel {
         'email': email,
         'profileImage': profileImage,
         'createdAt': createdAt,
-        'address': address
+        'address': address,
+        'phone': phone
       };
 }

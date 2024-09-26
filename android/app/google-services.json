@@ -1,65 +1,65 @@
 {
   "project_info": {
-    "project_number": "989888020220",
-    "firebase_url": "https://tictac-615f4-default-rtdb.firebaseio.com",
-    "project_id": "tictac-615f4",
-    "storage_bucket": "tictac-615f4.appspot.com"
+    "project_number": "215041914274",
+    "project_id": "flash-chat-1f084",
+    "storage_bucket": "flash-chat-1f084.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:989888020220:android:3b78b1fe6e067f047b2179",
+        "mobilesdk_app_id": "1:215041914274:android:dc54b56bd97b640a42aefb",
+        "android_client_info": {
+          "package_name": "co.Asad.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215041914274-mpa90kn0b51o0hkalvq4vm2me9okpv9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIXemgy-D5evl22BqC55YPX_X-1dws8Ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215041914274-mpa90kn0b51o0hkalvq4vm2me9okpv9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215041914274:android:b375f4059c45c03a42aefb",
         "android_client_info": {
           "package_name": "com.example.myshop"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "215041914274-mpa90kn0b51o0hkalvq4vm2me9okpv9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
+          "current_key": "AIzaSyAIXemgy-D5evl22BqC55YPX_X-1dws8Ls"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:989888020220:android:323ed0e717d38ad07b2179",
-        "android_client_info": {
-          "package_name": "com.example.tic_tac"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:989888020220:android:e226481c8b625b247b2179",
-        "android_client_info": {
-          "package_name": "tic.com"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDPebhDkRMwdAALb424AbqcXv2OGGxAoBM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215041914274-mpa90kn0b51o0hkalvq4vm2me9okpv9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

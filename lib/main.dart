@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:myshop/Pages/login.dart';
+import 'package:myshop/homepage_transition/homepage.dart';
 import 'package:myshop/screens/main_screen.dart';
 import 'package:myshop/services/app_provider.dart';
 import 'package:myshop/widgets/constants.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                 snapshot.hasData) {
               return const Mainscreen();
             } else {
-              return const LoginPage();
+              return const HomePage();
             }
           },
         ),

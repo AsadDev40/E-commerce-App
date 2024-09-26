@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:myshop/models/card_model.dart';
+import 'package:myshop/models/product_model.dart';
 import 'package:myshop/payment/body.dart';
 import 'package:myshop/payment/res.dart';
 
 class PaymentPage extends StatelessWidget {
-  const PaymentPage({super.key});
+  final double totalPayment; // Dynamic total payment
+  final List<ProductModel> product;
+
+  const PaymentPage(
+      {Key? key, required this.totalPayment, required this.product})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<PayCard> payemnts = Res.getPaymentTypes();
-    for (var element in payemnts) {
+    List<PayCard> payments = Res.getPaymentTypes();
+    for (var element in payments) {
       print(element.title);
     }
     return Scaffold(
@@ -17,7 +23,7 @@ class PaymentPage extends StatelessWidget {
       body: Column(
         children: [
           creditcardImage(),
-          choosePaymentType(),
+          choosePaymentType(totalPayment: totalPayment, product: product),
         ],
       ),
     );

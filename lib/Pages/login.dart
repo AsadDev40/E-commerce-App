@@ -4,7 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myshop/Pages/signup.dart';
 
 import 'package:myshop/provider/auth_provider.dart';
-import 'package:myshop/screens/home_screen.dart';
 import 'package:myshop/screens/main_screen.dart';
 import 'package:myshop/utils/utils.dart';
 import 'package:myshop/widgets/constants.dart';
@@ -141,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                 userNameController.clear();
                                 passwordController.clear();
                                 // ignore: use_build_context_synchronously
-                                Utils.navigateTo(context, const HomeScreen());
+                                Utils.navigateTo(context, const Mainscreen());
                               }
                             }
                           },

@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:myshop/Pages/login.dart';
-import 'package:myshop/homepage_transition/homepage.dart';
 import 'package:myshop/models/user_model.dart';
 import 'package:myshop/provider/auth_provider.dart';
 import 'package:myshop/provider/file_upload_provider.dart';
 import 'package:myshop/provider/image_picker.dart';
-import 'package:myshop/screens/home_screen.dart';
+import 'package:myshop/screens/main_screen.dart';
 import 'package:myshop/utils/utils.dart';
 import 'package:myshop/widgets/constants.dart';
 import 'package:myshop/widgets/custom_textfield.dart';
@@ -283,7 +282,7 @@ class SignupPage extends HookWidget {
                     imageProvider.reset();
                     Utils.navigateTo(
                       context,
-                      const HomeScreen(),
+                      const Mainscreen(),
                     );
                   }
                 },
@@ -305,7 +304,7 @@ class SignupPage extends HookWidget {
                   EasyLoading.dismiss();
                   Utils.navigateTo(
                     context,
-                    const HomePage(),
+                    const Mainscreen(),
                   );
                 },
                 child: const Text('Continue with Google',

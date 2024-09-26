@@ -23,7 +23,7 @@ class _MainscreenState extends State<Mainscreen> {
     return [
       const HomeScreen(),
       const Shop(),
-      const Profilescreen(),
+      const ProfileScreen(),
     ];
   }
 

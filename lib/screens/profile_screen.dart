@@ -1,15 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myshop/Pages/login.dart';
 import 'package:myshop/models/user_model.dart';
 import 'package:myshop/provider/auth_provider.dart' as authpro;
 import 'package:myshop/screens/edit_profile_screen.dart';
+import 'package:myshop/screens/order_screen.dart';
 import 'package:myshop/utils/utils.dart';
 import 'package:myshop/widgets/constants.dart';
 import 'package:provider/provider.dart';
 
-class Profilescreen extends StatelessWidget {
-  const Profilescreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,153 +19,261 @@ class Profilescreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Profile'),
+        title: const Text('Profile'),
+        centerTitle: true,
+        // backgroundColor: PrimaryColor, // Custom app color
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              authProvider.logout();
+              Utils.pushAndRemovePrevious(context, const LoginPage());
+            },
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
-      body: Center(
-        child: FutureBuilder<UserModel>(
-          future: authProvider.getUserFromFirestore(currentUserId),
-          builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(); // Show loading indicator while waiting for data
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}'); // Handle error
-            } else {
-              final user = snapshot.data!;
-              return Column(
+      body: FutureBuilder<UserModel>(
+        future: authProvider.getUserFromFirestore(currentUserId),
+        builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                'Error: ${snapshot.error}',
+                style: const TextStyle(fontSize: 18),
+              ),
+            );
+          } else {
+            final user = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 29,
+                  SizedBox(
+                    height: 30,
                   ),
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(
-                        user.profileImage ?? 'https://via.placeholder.com/300'),
-                    backgroundColor: Colors.grey,
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    user.userName,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Email:',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          user.email,
-                          style:
-                              const TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Address:',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          user.address.toString(),
-                          style:
-                              const TextStyle(fontSize: 18, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          minimumSize:
-                              WidgetStateProperty.all(const Size(140, 40)),
-                          alignment: Alignment.center),
-                      onPressed: () {
-                        Utils.navigateTo(
-                            context,
-                            EditProfilePage(
-                              imagepath: user.profileImage.toString(),
-                              username: user.userName,
-                              email: user.email,
-                              userid: currentUserId,
-                              address: user.address.toString(),
-                            ));
-                      },
-                      child: const Text('Edit Profile',
-                          style: TextStyle(color: PrimaryColor))),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        minimumSize:
-                            WidgetStateProperty.all(const Size(140, 40)),
-                        alignment: Alignment.center),
-                    onPressed: () {
-                      authProvider.logout();
-                      Utils.pushAndRemovePrevious(context, const LoginPage());
-                    },
-                    child: const Text(
-                      'Logout',
-                      style: TextStyle(color: PrimaryColor),
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        minimumSize:
-                            WidgetStateProperty.all(const Size(140, 40)),
-                        alignment: Alignment.center),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Delete Account'),
-                            content: const Text(
-                                'Are you sure you want to delete your account?'),
-                            actions: [
-                              TextButton(
-                                child: const Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundColor: Colors.white,
+                        child: ClipOval(
+                          child: Stack(
+                            children: [
+                              // The actual image from the network
+                              Image.network(
+                                user.profileImage ??
+                                    'https://via.placeholder.com/300',
+                                width: 120,
+                                height: 120,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child; // Image has loaded
+                                  } else {
+                                    return const Center(
+                                      child:
+                                          CircularProgressIndicator(), // Show progress indicator while loading
+                                    );
+                                  }
                                 },
-                              ),
-                              TextButton(
-                                child: const Text('Delete'),
-                                onPressed: () {
-                                  authProvider.deleteUserDatatoFirestore();
+                                errorBuilder: (context, error, stackTrace) {
+                                  // Error placeholder
+                                  return Image.network(
+                                    'https://via.placeholder.com/300', // Fallback image in case of error
+                                    width: 120,
+                                    height: 120,
+                                    fit: BoxFit.cover,
+                                  );
                                 },
                               ),
                             ],
-                          );
-                        },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15), // Space for avatar
+
+                  // User Name and Email Info
+                  Text(
+                    user.userName,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: PrimaryColor,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Info Cards (Email, Address)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      children: [
+                        buildInfoCard(Icons.email, "Email", user.email),
+                        const SizedBox(height: 10),
+                        buildInfoCard(
+                          Icons.location_on,
+                          "Address",
+                          user.address ?? 'No Address Available',
+                        ),
+                        const SizedBox(height: 10),
+                        buildInfoCard(
+                            Icons.phone, 'Phone', user.phone.toString())
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Edit Profile Button
+                  buildActionButton(
+                    text: 'Edit Profile',
+                    onPressed: () {
+                      Utils.navigateTo(
+                        context,
+                        EditProfilePage(
+                          imagepath: user.profileImage.toString(),
+                          username: user.userName,
+                          email: user.email,
+                          userid: currentUserId,
+                          address: user.address.toString(),
+                        ),
                       );
                     },
-                    child: const Text(
-                      'Delete Account',
-                      style: TextStyle(color: PrimaryColor),
-                    ),
-                  )
+                    icon: Icons.edit,
+                  ),
+                  buildActionButton(
+                    text: 'Your Orders',
+                    onPressed: () {
+                      Utils.navigateTo(context, OrderScreen());
+                    },
+                    icon: Icons.shop_2,
+                    color: Colors.purple,
+                  ),
+
+                  // Delete Account Button
+                  buildActionButton(
+                    text: 'Delete Account',
+                    onPressed: () {
+                      showDeleteAccountDialog(context, authProvider);
+                    },
+                    icon: Icons.delete_forever,
+                    color: Colors.purple,
+                  ),
+                  const SizedBox(height: 20),
                 ],
-              );
-            }
-          },
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  // Method to build Info Cards for email and address
+  Widget buildInfoCard(IconData icon, String label, String value) {
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: Icon(icon, color: PrimaryColor, size: 28),
+        title: Text(
+          label,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        subtitle: Text(
+          value,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
         ),
       ),
+    );
+  }
+
+  // Method to build Action buttons (Edit Profile, Delete Account)
+  Widget buildActionButton({
+    required String text,
+    required VoidCallback onPressed,
+    required IconData icon,
+    Color color = PrimaryColor,
+    double width = 120, // full width by default
+    double height = 55.0, // slightly larger height for better feel
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: 10.0,
+          horizontal: 20), // increased padding for better layout
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          minimumSize: Size(width, height), // Setting the width and height
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25), // Soft rounded corners
+          ),
+          elevation: 5, // Elevation for a shadow effect
+          shadowColor: Colors.black.withOpacity(0.2), // Subtle shadow
+          padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical:
+                  15), // Internal padding to make the button content more balanced
+        ),
+        icon: Icon(
+          icon,
+          size: 24, // Adjust icon size to match the text better
+          color: Colors.white,
+        ),
+        label: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 18, // Slightly larger text for better readability
+            fontWeight: FontWeight.bold, // Use bold to emphasize button text
+            color: Colors.white,
+          ),
+        ),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
+  // Method to show delete account confirmation dialog
+  void showDeleteAccountDialog(
+      BuildContext context, authpro.AuthProvider authProvider) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Account'),
+          content: const Text('Are you sure you want to delete your account?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                authProvider.deleteUserDatatoFirestore();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
