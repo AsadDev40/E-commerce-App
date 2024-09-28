@@ -136,9 +136,7 @@ class _CartListState extends State<CartList> {
                       ),
                     ),
                     child: ListTile(
-                      onTap: () {
-                        print('Card tapped.');
-                      },
+                      onTap: () {},
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5.0),
                         child: Container(

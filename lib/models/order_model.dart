@@ -53,8 +53,7 @@ class OrderModel {
         deliveryDate: (json['deliveryDate'] as Timestamp).toDate(),
       );
     } catch (e) {
-      print(
-          'Error parsing order data: $e'); // Debugging output for errors in parsing JSON
+      // Debugging output for errors in parsing JSON
       throw Exception('Error parsing order data: $e');
     }
   }

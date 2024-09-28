@@ -56,9 +56,9 @@ class CategoryProvider extends ChangeNotifier {
       await categoryCollection
           .doc(category.categoryId)
           .update(category.toJson());
-      fetchCategories(); // Update local category list
+      fetchCategories();
     } catch (e) {
-      print('Error updating category: $e');
+      rethrow;
     }
   }
 
@@ -67,9 +67,9 @@ class CategoryProvider extends ChangeNotifier {
     try {
       await categoryCollection.doc(categoryId).delete();
       _categories.removeWhere((category) => category.categoryId == categoryId);
-      notifyListeners(); // Notify listeners to rebuild UI
+      notifyListeners();
     } catch (e) {
-      print('Error deleting category: $e');
+      rethrow;
     }
   }
 

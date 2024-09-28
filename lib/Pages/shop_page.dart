@@ -199,12 +199,13 @@ class _ShopState extends State<Shop> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: RatingStars(
-                              value: product.rating,
+                              value: product.averagerating ??
+                                  0.0, // Provide a default value if averagerating is null
                               starSize: 14,
                               valueLabelColor: Colors.amber,
                               starColor: Colors.amber,
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

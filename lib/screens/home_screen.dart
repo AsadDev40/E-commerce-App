@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:myshop/Pages/CategoryPage.dart';
-import 'package:myshop/Pages/ShopPage.dart';
+import 'package:myshop/Pages/category_page.dart';
+import 'package:myshop/Pages/shop_page.dart';
 import 'package:myshop/Pages/cart_page.dart';
 import 'package:myshop/Pages/wishlist.dart';
 import 'package:myshop/models/category_model.dart';

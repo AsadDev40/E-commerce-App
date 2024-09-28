@@ -16,19 +16,15 @@ class OrderProvider with ChangeNotifier {
   // Function to add a new order to Firestore and local list
   Future<void> addOrder(OrderModel newOrder) async {
     try {
-      // Step 1: Add new order to Firestore and get document reference
       DocumentReference docRef = await orderCollection.add(newOrder.toJson());
 
-      // Step 2: Update the order object with the generated Firestore document ID
       OrderModel updatedOrder = newOrder.copyWith(orderId: docRef.id);
 
-      // Step 3: Add the updated order to the local orders list
       _orders.add(updatedOrder);
 
-      // Step 4: Notify the listeners/UI that the list has been updated
       notifyListeners();
     } catch (e) {
-      print('Error adding order to Firestore: $e');
+      rethrow;
     }
   }
 
@@ -40,9 +36,9 @@ class OrderProvider with ChangeNotifier {
       _orders = snapshot.docs
           .map((doc) => OrderModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
-      notifyListeners(); // Notify UI of changes
+      notifyListeners();
     } catch (e) {
-      print('Error fetching orders: $e');
+      rethrow;
     }
   }
 
@@ -53,7 +49,7 @@ class OrderProvider with ChangeNotifier {
       _orders.removeWhere((order) => order.orderId == orderId);
       notifyListeners(); // Notify UI of changes
     } catch (e) {
-      print('Error removing order: $e');
+      rethrow;
     }
   }
 
@@ -62,13 +58,11 @@ class OrderProvider with ChangeNotifier {
     final orderIndex = _orders.indexWhere((order) => order.orderId == orderId);
     if (orderIndex != -1) {
       try {
-        // Update in Firestore
         await orderCollection.doc(orderId).update({'status': newStatus});
-        // Update locally
         _orders[orderIndex] = _orders[orderIndex].copyWith(status: newStatus);
-        notifyListeners(); // Notify UI of changes
+        notifyListeners();
       } catch (e) {
-        print('Error updating order status: $e');
+        rethrow;
       }
     }
   }
@@ -76,6 +70,34 @@ class OrderProvider with ChangeNotifier {
   // Clear all orders (if needed)
   void clearOrders() {
     _orders.clear();
-    notifyListeners(); // Notify UI of changes
+    notifyListeners();
+  }
+
+  Future<void> addProductRating(String productId, double newRating) async {
+    final productDoc = await FirebaseFirestore.instance
+        .collection('products')
+        .doc(productId)
+        .get();
+
+    if (productDoc.exists) {
+      final currentRatings = productDoc.data()?['rating'] ?? [];
+      currentRatings.add(newRating);
+
+      // Calculate the new average rating
+      double totalRating = 0;
+      for (double rating in currentRatings) {
+        totalRating += rating;
+      }
+      double averageRating = totalRating / currentRatings.length;
+
+      // Update the product's rating in Firestore
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(productId)
+          .update({
+        'rating': currentRatings,
+        'averageRating': averageRating,
+      });
+    }
   }
 }

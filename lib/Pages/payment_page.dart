@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:myshop/models/card_model.dart';
 import 'package:myshop/models/product_model.dart';
@@ -9,8 +11,7 @@ class PaymentPage extends StatelessWidget {
   final List<ProductModel> product;
 
   const PaymentPage(
-      {Key? key, required this.totalPayment, required this.product})
-      : super(key: key);
+      {super.key, required this.totalPayment, required this.product});
 
   @override
   Widget build(BuildContext context) {

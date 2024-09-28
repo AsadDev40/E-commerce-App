@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'package:cached_network_image/cached_network_image.dart'; // For better image loading
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +84,7 @@ Widget buildOrderCard(OrderModel order, BuildContext context) {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundImage:
-                    CachedNetworkImageProvider(order.images.first ?? ''),
+                backgroundImage: CachedNetworkImageProvider(order.images.first),
                 backgroundColor: Colors.grey[200],
               ),
               const SizedBox(width: 10),
@@ -126,7 +127,7 @@ Widget buildOrderCard(OrderModel order, BuildContext context) {
                 ),
                 child: Center(
                   child: Text(
-                    order.status ?? 'Unknown',
+                    order.status,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
